@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane fx:id="pnRoot" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1366.0" prefWidth="274.0" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.ControllerDialog">
+   <children>
+      <ImageView id="1" fitHeight="150.0" fitWidth="200.0" layoutX="47.0" layoutY="35.0" onMouseClicked="#click1" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/fish-1.gif" />
+         </image>
+      </ImageView>
+      <ImageView id="2" fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/fish-2.gif" />
+         </image>
+      </ImageView>
+      <ImageView id="3" fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="299.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/fish-3.gif" />
+         </image>
+      </ImageView>
+      <ImageView id="4" fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="441.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/fish-4.gif" />
+         </image>
+      </ImageView>
+      <ImageView id="5" fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="551.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/fish-5.gif" />
+         </image>
+      </ImageView>
+      <ImageView id="6" fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="635.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/fish-6.gif" />
+         </image>
+      </ImageView>
+      <Button fx:id="btn" layoutX="182.0" layoutY="71.0" mnemonicParsing="false" onAction="#click1" text="Button" />
+   </children>
+</Pane>
