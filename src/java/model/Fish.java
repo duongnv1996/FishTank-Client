@@ -1,28 +1,27 @@
 package model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import javafx.animation.AnimationTimer;
+import javafx.geometry.Point3D;
 import javafx.scene.image.ImageView;
-import mover.Mover;
-
-import java.io.Serializable;
 
 /**
  * Created by hiepdv on 11/12/2016.
  */
-public class Fish extends AnimationTimer implements Serializable{
+public class Fish {
 
     private String id;
-    private int deviceId;
     private ImageView imageFish;
-    private Mover mover;
-    @JsonIgnore
-    public long    personId = 0;
-    private static final long serialVersionUID = 1L;
-    public Fish(ImageView imageFish, Mover mover) {
+
+    public Fish(String source) {
         this.id = String.valueOf(System.currentTimeMillis());
-        this.imageFish = imageFish;
-        this.mover = mover;
+        this.imageFish = new ImageView(source);
+        this.imageFish.setRotationAxis(new Point3D(0, 1, 0));
+
+    }
+
+    public void move(Double x, Double y, Integer rotation) {
+        this.imageFish.setX(x);
+        this.imageFish.setY(y);
+        this.imageFish.setRotate(rotation);
     }
 
     public String getId() {
@@ -33,33 +32,11 @@ public class Fish extends AnimationTimer implements Serializable{
         this.id = id;
     }
 
-    public int getDeviceId() {
-        return deviceId;
-    }
-
-    public void setDeviceId(int deviceId) {
-        this.deviceId = deviceId;
-    }
-
     public ImageView getImageFish() {
         return imageFish;
     }
 
     public void setImageFish(ImageView imageFish) {
         this.imageFish = imageFish;
-    }
-
-    public Mover getMover() {
-        return mover;
-    }
-
-    public void setMover(Mover mover) {
-        this.mover = mover;
-    }
-
-    @Override
-    public void handle(long l) {
-        mover.move(imageFish);
-
     }
 }

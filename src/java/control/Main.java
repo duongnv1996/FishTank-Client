@@ -7,7 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import utils.Constants;
 
 public class Main extends Application {
 
@@ -17,7 +16,7 @@ public class Main extends Application {
         primaryStage.setTitle("Fish tank client");
         Rectangle2D screen = Screen.getPrimary().getVisualBounds();
 
-        primaryStage.setScene(new Scene(root, Constants.WIDTH_SCREEN, screen.getHeight()));
+        primaryStage.setScene(new Scene(root, screen.getWidth(),screen.getHeight()));
         primaryStage.show();
         primaryStage.setFullScreen(true);
 

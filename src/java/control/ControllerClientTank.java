@@ -5,9 +5,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Screen;
+import model.Fish;
 import org.bson.Document;
 import sun.security.util.Debug;
 
@@ -25,19 +25,21 @@ import java.util.ResourceBundle;
  * Created by MyPC on 3/1/2017.
  */
 public class ControllerClientTank implements Initializable {
+
     @FXML
-    Pane pnRoot;
+    private Pane pnRoot;
 
     private Socket mSocket;
-    private Map<String, ImageView> mMapFish;
-    Rectangle2D screen;
+    private Map<String, Fish> fishById;
+    private Rectangle2D screen;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-         screen= Screen.getPrimary().getVisualBounds();
+        screen = Screen.getPrimary().getVisualBounds();
         Image image = new Image("background.jpg");
         BackgroundImage backgroundImage = new BackgroundImage(image, BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
         pnRoot.setBackground(new Background(backgroundImage));
-        mMapFish = new HashMap<>();
+        fishById = new HashMap<>();
 
 
         try {
@@ -63,47 +65,35 @@ public class ControllerClientTank implements Initializable {
         public void run() {
             super.run();
             try {
-                BufferedReader br = new BufferedReader(new InputStreamReader(mSocket.getInputStream()));
+                BufferedReader reader = new BufferedReader(new InputStreamReader(mSocket.getInputStream()));
+
                 while (true) {
-                    String msg = br.readLine();
+                    String msg = reader.readLine();
                     if (msg != null) {
                         Document document = Document.parse(msg);
-                        final String id = document.getString("id");
-                        final double x = document.getDouble("x");
-                        final double y = document.getDouble("y");
+                        String id = document.getString("id");
+                        double x = document.getDouble("x");
+                        double y = document.getDouble("y");
                         String source = document.getString("source");
+                        Integer rotation = document.getInteger("rotation");
 
                         //draw
-                        if (x >= screen.getWidth()) {
-                            Debug.println("MSG "+ screen.getWidth(), msg);
-                            if (!mMapFish.containsKey(id)) {
-                                final ImageView imageView = new ImageView(source);
-                                imageView.setX(x-screen.getWidth());
-                                imageView.setY(y);
-                                mMapFish.put(id, imageView);
-                                Platform.runLater(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        pnRoot.getChildren().add(imageView);
+                        Debug.println("MSG " + screen.getWidth(), msg);
+                        Fish fish = fishById.get(id);
 
-                                    }
-                                });
-                            } else {
-                                Platform.runLater(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        ImageView imageView = mMapFish.get(id);
-                                      imageView.setY(y);
-                                      Debug.println("x", String.valueOf(x-screen.getWidth()));
-                                      imageView.setX(x - screen.getWidth());
+                        if (fish == null) {
+                            Fish newFish = new Fish(source);
+                            newFish.move(x, y, rotation);
 
-                                    }
-                                });
-
-
-                            }
-
+                            fishById.put(id, newFish);
+                            Platform.runLater(() -> pnRoot.getChildren().add(newFish.getImageFish()));
+                            continue;
                         }
+
+                        Platform.runLater(() -> {
+                            fish.move(x, y, rotation);
+                        });
+
                     }
                 }
             } catch (IOException e) {
