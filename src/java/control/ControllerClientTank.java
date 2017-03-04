@@ -53,10 +53,10 @@ public class ControllerClientTank implements Initializable {
     }
 
     private void setupConnection(Rectangle2D screen, PrintStream printStream) {
-        Document document = new Document();
-        document.put("width", (int) screen.getWidth());
-        document.put("height", (int) screen.getHeight());
-        printStream.println(document.toJson());
+        Document message = new Document();
+        message.put("width", (int) screen.getWidth());
+        message.put("height", (int) screen.getHeight());
+        printStream.println(message.toJson());
     }
 
     class FishHandler extends Thread {
