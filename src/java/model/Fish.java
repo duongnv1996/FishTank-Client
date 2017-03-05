@@ -18,7 +18,7 @@ public class Fish {
 
     }
 
-    public void move(Double x, Double y, Integer rotation) {
+    public void move(Double x, Double y, Double rotation) {
         this.imageFish.setX(x);
         this.imageFish.setY(y);
         this.imageFish.setRotate(rotation);
