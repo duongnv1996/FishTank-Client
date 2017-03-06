@@ -12,10 +12,7 @@ import javafx.stage.Screen;
 import model.Fish;
 import org.bson.Document;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
+import java.io.*;
 import java.net.Socket;
 import java.net.URL;
 import java.util.HashMap;
@@ -73,6 +70,7 @@ public class ControllerClientTank implements Initializable {
 
                 while (true) {
                     String line = reader.readLine();
+                    System.out.println(line);
                     List<Document> fishDocuments =
                             mapper.readValue(line, new TypeReference<List<Document>>() {
                             });
@@ -86,7 +84,8 @@ public class ControllerClientTank implements Initializable {
                         String id = fishDocument.getString("id");
                         double x = fishDocument.getDouble("x");
                         double y = fishDocument.getDouble("y");
-                        String source = fishDocument.getString("source");
+                        String source = new File(fishDocument.getString("source")).getName();
+
                         Double rotation = fishDocument.getDouble("rotation");
 
                         //draw

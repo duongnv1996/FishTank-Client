@@ -1,6 +1,7 @@
 package model;
 
 import javafx.geometry.Point3D;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
@@ -13,7 +14,9 @@ public class Fish {
 
     public Fish(String source) {
         this.id = String.valueOf(System.currentTimeMillis());
-        this.imageFish = new ImageView(source);
+        Image image = new Image(source);
+
+        this.imageFish = new ImageView(image);
         this.imageFish.setRotationAxis(new Point3D(0, 1, 0));
 
     }
